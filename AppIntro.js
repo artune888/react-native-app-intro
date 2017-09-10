@@ -102,6 +102,14 @@ const defaulStyles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  fullScreenButton: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: windowsHeight,
+    width: windowsWidth,
+    zIndex: 10,
+  },
 }
 
 export default class AppIntro extends Component {
@@ -216,7 +224,7 @@ export default class AppIntro extends Component {
           ...this.props,
           styles: this.styles
         })}
-        {this.props.showDoneButton ? <DoneButton
+        {this.props.showDoneButton && !this.props.fullScreenButton ? <DoneButton
             {...this.props}
             {...this.state}
             isDoneBtnShow={isDoneBtnShow}
@@ -225,6 +233,10 @@ export default class AppIntro extends Component {
             onDoneBtnClick={this.props.onDoneBtnClick} /> :
             <View style={this.styles.btnContainer} />
           }
+        {this.props.showDoneButton && this.props.fullScreenButton && <TouchableOpacity
+            style={this.styles.fullScreenButton}
+            onPress={this.onNextBtnClick.bind(this, context)} />
+        }
       </View>
     );
   }
