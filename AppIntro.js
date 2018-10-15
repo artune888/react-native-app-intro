@@ -134,9 +134,9 @@ export default class AppIntro extends Component {
     let x = 0;
     if (state.dir === 'x') x = diff * state.width;
     if (Platform.OS === 'ios') {
-      context.refs.scrollView.scrollTo({ y: 0, x });
+      context.scrollView.scrollTo({ y: 0, x });
     } else {
-      context.refs.scrollView.setPage(diff);
+      context.scrollView.setPage(diff);
       context.onScrollEnd({
         nativeEvent: {
           position: diff,
@@ -350,7 +350,7 @@ export default class AppIntro extends Component {
     }
 
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         {androidPages}
         <Swiper
           loop={false}
@@ -364,7 +364,7 @@ export default class AppIntro extends Component {
             this.props.onSlideChange(state.index, state.total);
           }}
           onScroll={Animated.event(
-            [{ x: this.state.parallax }]
+            [ { nativeEvent: { contentOffset: { x: this.state.parallax } } }]
           )}
         >
           {pages}
